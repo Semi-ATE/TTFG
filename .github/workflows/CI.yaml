@@ -3,18 +3,19 @@ name: CI
 on: [push]
 
 jobs:
-  name: build
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2   
-    - name: Install Python
-      uses: mamba-org/provision-with-micromamba@v10
-    - name: Run tests
-      run: pytest tests/ --cov=starz
-    - name: Create package
-      run: python setup.py sdist 
-    - name: Check package
-      run: twine check dist/*
-    - name: Check manifest 
-      run: check-manifest
+  test_build:
+    name: test_build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2   
+      - name: Install Python
+        uses: mamba-org/provision-with-micromamba@v10
+      - name: Run tests
+        run: pytest tests/ --cov=starz
+      - name: Create package
+        run: python setup.py sdist 
+      - name: Check package
+        run: twine check dist/*
+      - name: Check manifest 
+        run: check-manifest
